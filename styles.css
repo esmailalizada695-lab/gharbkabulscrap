@@ -144,6 +144,17 @@ svg { fill: currentColor; }
 .section h2 { font-size: clamp(1.6rem, 3.4vw, 2.4rem); font-weight: 900; color: var(--purple-800); }
 .section-intro { color: var(--muted); margin: 10px 0 0; }
 
+/* Intro video (portrait 1072×1920) right after the hero */
+.intro-grid { display: grid; grid-template-columns: 1fr minmax(0, 340px); gap: 48px; align-items: center; }
+.intro-text { min-width: 0; max-width: 560px; }
+.intro-text p:not(.kicker) { color: var(--muted); margin: 12px 0 22px; }
+.intro-video { justify-self: center; width: 100%; max-width: min(340px, calc(78vh * 1072 / 1920)); border-radius: 18px; overflow: hidden; background: #000; box-shadow: var(--shadow); }
+.intro-video video { width: 100%; height: auto; aspect-ratio: 1072 / 1920; max-height: 78vh; object-fit: contain; }
+@media (max-width: 760px) {
+  .intro-grid { grid-template-columns: 1fr; gap: 24px; }
+  .intro-video { max-width: min(300px, calc(78vh * 1072 / 1920)); }
+}
+
 /* Product cards */
 .products { background: var(--bg-soft); }
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }

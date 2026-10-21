@@ -26,7 +26,6 @@
 
   // Videos: original files, loaded only when the visitor presses play.
   var videos = [
-    { cat: 'yard', file: 'web/intro.mp4', poster: 'intro.jpg', w: 1072, h: 1920, label: 'ویدیوی معرفی آهن‌فروشی و ضایعات غرب کابل' },
     { cat: 'aluminum', file: 'web/metal-1.mp4', poster: 'metal-1.jpg', w: 1920, h: 1072, label: 'ویدیو: ارمنه نرم در محوطه' },
     { cat: 'shoes', file: 'web/shoes.mp4', poster: 'shoes.jpg', w: 1072, h: 1920, label: 'ویدیو: انبوه چپلک و کفش‌های مستعمل' },
     { cat: 'yard', file: 'web/yard-walk.mp4', poster: 'yard-walk.jpg', w: 1920, h: 1072, label: 'ویدیو: نمایی از محوطه و بارگیری اجناس' },
