@@ -51,6 +51,10 @@
   });
   while (vi < videos.length) items.push({ type: 'video', data: videos[vi++] });
 
+  // Masonry is built from real column elements instead of CSS `columns`:
+  // iPhone Safari paints <video> inside CSS multi-column layout in the wrong
+  // place as black boxes.
+  var cells = [];
   items.forEach(function (it) {
     var li;
     if (it.type === 'photo') {
@@ -68,8 +72,33 @@
       var box = el('div', { 'class': 'video-box', style: 'position:relative' }, [video, el('span', { 'class': 'badge', 'aria-hidden': 'true' }, ['ویدیو'])]);
       li = el('li', { 'data-cat': v.cat + ' video' }, [box, el('span', { 'class': 'video-cap' }, [v.label])]);
     }
-    grid.appendChild(li);
+    // relative height used to balance columns (captions add a little)
+    li._h = it.data.h / it.data.w + (it.type === 'video' ? 0.15 : 0);
+    cells.push(li);
   });
+
+  var colCount = 0;
+  function columnsFor(width) {
+    if (window.matchMedia('(max-width: 600px)').matches) return 2;
+    return Math.max(1, Math.min(3, Math.floor(width / 280)));
+  }
+  function layout(force) {
+    var n = columnsFor(grid.clientWidth);
+    if (n === colCount && !force) return;
+    colCount = n;
+    var cols = [], heights = [];
+    for (var i = 0; i < n; i++) { cols.push(el('ul', { 'class': 'm-col' })); heights.push(0); }
+    cells.forEach(function (li) {
+      if (li.hidden) { cols[0].appendChild(li); return; }
+      var k = heights.indexOf(Math.min.apply(null, heights));
+      cols[k].appendChild(li);
+      heights[k] += li._h;
+    });
+    grid.textContent = '';
+    cols.forEach(function (c) { grid.appendChild(c); });
+  }
+  layout(true);
+  window.addEventListener('resize', function () { layout(false); });
 
   // Only one video plays at a time.
   grid.addEventListener('play', function (e) {
@@ -81,13 +110,14 @@
   function applyFilter(f) {
     var shown = 0;
     chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c.dataset.filter === f)); });
-    Array.prototype.forEach.call(grid.children, function (li) {
+    cells.forEach(function (li) {
       var cats = li.getAttribute('data-cat').split(' ');
       var on = f === 'all' || cats.indexOf(f) !== -1;
       li.hidden = !on;
-      if (!on) { var v = li.querySelector('video'); if (v) v.pause(); }
+      var v = li.querySelector('video'); if (v) v.pause();
       if (on) shown++;
     });
+    layout(true);
     status.textContent = shown + ' مورد نمایش داده شد';
   }
   chips.forEach(function (c) { c.addEventListener('click', function () { applyFilter(c.dataset.filter); }); });
@@ -103,8 +133,9 @@
   var lastFocus = null;
 
   function visiblePhotoIndexes() {
-    return Array.prototype.filter.call(grid.querySelectorAll('.tile'), function (b) { return !b.closest('li').hidden; })
-      .map(function (b) { return +b.dataset.index; });
+    // follow gallery order, not column order
+    return cells.filter(function (li) { return !li.hidden && li.querySelector('.tile'); })
+      .map(function (li) { return +li.querySelector('.tile').dataset.index; });
   }
   function show(i) {
     var p = photos[i];

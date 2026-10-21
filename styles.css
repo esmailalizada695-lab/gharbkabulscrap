@@ -207,10 +207,11 @@ svg { fill: currentColor; }
 }
 .chip:hover { border-color: var(--purple-600); color: var(--purple-700); }
 .chip[aria-pressed="true"] { background: var(--purple-700); border-color: var(--purple-700); color: var(--white); }
-.masonry { columns: 3 280px; column-gap: 16px; }
-.masonry > li { break-inside: avoid; margin-bottom: 16px; }
-.masonry > li[hidden] { display: none; }
-@media (max-width: 600px) { .masonry { columns: 2; column-gap: 10px; } .masonry > li { margin-bottom: 10px; } .tile-cap, .video-cap { font-size: .82rem; } }
+/* columns are real elements built by app.js (no CSS multi-column: breaks <video> on iPhone) */
+.masonry { display: flex; gap: 16px; align-items: flex-start; }
+.m-col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.m-col > li[hidden] { display: none; }
+@media (max-width: 600px) { .masonry, .m-col { gap: 10px; } .tile-cap, .video-cap { font-size: .82rem; } }
 .tile {
   position: relative; display: block; width: 100%; padding: 0; border: 0; cursor: zoom-in;
   border-radius: 12px; overflow: hidden; background: var(--purple-100);
