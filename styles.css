@@ -331,7 +331,7 @@ svg { fill: currentColor; }
 .footer-links a:hover, .footer-contact a:hover { color: var(--yellow); text-decoration: underline; }
 .footer-contact { display: grid; gap: 8px; }
 .footer-contact a { font-weight: 700; color: var(--white); unicode-bidi: isolate; white-space: nowrap; }
-.copyright { border-top: 1px solid rgba(255,255,255,.12); padding: 18px 0; margin-block: 0; font-size: .9rem; color: rgba(255,255,255,.6); }
+.copyright { border-top: 1px solid rgba(255,255,255,.12); padding: 18px 0; margin-block: 0; font-size: .9rem; color: rgba(255,255,255,.7); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; }
 @media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr; gap: 28px; } }
 
 /* Mobile call bar */
