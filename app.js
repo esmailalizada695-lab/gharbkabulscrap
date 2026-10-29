@@ -199,7 +199,7 @@
   document.addEventListener('click', function (e) {
     if (toggle.getAttribute('aria-expanded') === 'true' && !e.target.closest('.nav')) setMenu(false);
   });
-  window.matchMedia('(min-width: 921px)').addEventListener('change', function (m) { if (m.matches) setMenu(false); });
+  window.matchMedia('(min-width: 1181px)').addEventListener('change', function (m) { if (m.matches) setMenu(false); });
 
   // The host injects a fixed "Powered by Netlify" badge at the bottom edge; lift the
   // mobile call bar above it so both stay tappable.
@@ -233,7 +233,11 @@
         }
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
-    ['home', 'products', 'gallery', 'about', 'contact'].forEach(function (id) { secObs.observe(document.getElementById(id)); });
+    // every section the menu links to
+    links.forEach(function (a) {
+      var sec = document.getElementById(a.getAttribute('href').slice(1));
+      if (sec) secObs.observe(sec);
+    });
 
     var revObs = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); revObs.unobserve(en.target); } });
