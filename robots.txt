@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gharbkabulscrap.com/sitemap.xml
