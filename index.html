@@ -599,20 +599,25 @@
 
 <script src="app.js" defer></script>
 <script src="features.js" defer></script>
-<!-- Google Analytics (G-31M858YKJW): loaded after the page has finished, so it does not slow the first view -->
+<!-- Google Analytics (G-31M858YKJW): loaded on the visitor's first scroll, tap, click or key press, so it never slows the first view -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-31M858YKJW');
-  window.addEventListener('load', function () {
-    setTimeout(function () {
+  (function () {
+    var started = false, evs = ['scroll', 'pointerdown', 'touchstart', 'keydown'];
+    function loadGA() {
+      if (started) return;
+      started = true;
+      evs.forEach(function (t) { window.removeEventListener(t, loadGA, true); });
       var s = document.createElement('script');
       s.async = true;
       s.src = 'https://www.googletagmanager.com/gtag/js?id=G-31M858YKJW';
       document.head.appendChild(s);
-    }, 1500);
-  });
+    }
+    evs.forEach(function (t) { window.addEventListener(t, loadGA, { capture: true, passive: true }); });
+  })();
   // Count taps on call and WhatsApp buttons (no message text or visitor data is sent)
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a');
