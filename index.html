@@ -575,6 +575,7 @@
       </ul>
     </div>
   </div>
+  <p class="wrap analytics-note">این سایت برای آمار بازدید از Google Analytics استفاده می‌کند. متن فرم درخواست برای Google فرستاده نمی‌شود.</p>
   <p class="wrap copyright"><span>آهن‌فروشی و ضایعات غرب کابل</span><span dir="ltr" lang="en">© 2026 Esmail Alizada. All rights reserved.</span></p>
 </footer>
 
@@ -598,5 +599,28 @@
 
 <script src="app.js" defer></script>
 <script src="features.js" defer></script>
+<!-- Google Analytics (G-31M858YKJW): loaded after the page has finished, so it does not slow the first view -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-31M858YKJW');
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-31M858YKJW';
+      document.head.appendChild(s);
+    }, 1500);
+  });
+  // Count taps on call and WhatsApp buttons (no message text or visitor data is sent)
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a');
+    if (!a) return;
+    var h = a.getAttribute('href') || '';
+    if (h.indexOf('tel:') === 0) gtag('event', 'contact_call', { link_id: a.id || a.className || 'phone' });
+    else if (h.indexOf('https://wa.me/') === 0) gtag('event', 'contact_whatsapp', { link_id: a.id || a.className || 'whatsapp' });
+  });
+</script>
 </body>
 </html>

@@ -157,6 +157,8 @@
     e.preventDefault();
     if (!validate()) return;
     summary.value = buildText();
+    // count prepared requests by type only; the text itself is not sent
+    if (window.gtag) window.gtag('event', 'generate_lead', { request_type: f.type.value, item: f.item.value || 'none' });
     copyStatus.textContent = '';
     result.hidden = false;
     updateLinks();
