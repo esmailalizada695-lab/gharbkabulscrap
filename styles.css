@@ -126,7 +126,7 @@ svg { fill: currentColor; }
 /* positioned above the absolutely placed photo, otherwise the photo swallows taps on the buttons */
 .hero-content { position: relative; z-index: 1; padding-block: 120px 72px; max-width: 1180px; }
 /* phone: keep the worker on the truck in frame */
-@media (max-width: 699px) { .hero-media img { object-position: 22% 50%; } }
+@media (max-width: 699px) { .hero-media img { object-position: 50% 50%; } }
 .hero-content > * { max-width: 760px; }
 .eyebrow {
   display: inline-block; margin: 0 0 18px; padding: .3em 1em;

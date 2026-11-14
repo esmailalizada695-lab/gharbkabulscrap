@@ -65,7 +65,7 @@
     } else {
       var v = it.data;
       var video = el('video', {
-        controls: '', preload: 'none', playsinline: '', poster: v.poster ? VID + 'posters/' + v.poster : null,
+        controls: '', preload: 'none', playsinline: '', 'data-poster': v.poster ? VID + 'posters/' + v.poster : null,
         width: v.w, height: v.h, 'aria-label': v.label
       }, [el('source', { src: VID + v.file, type: 'video/mp4' })]);
       video.style.aspectRatio = v.w + ' / ' + v.h;
@@ -99,6 +99,18 @@
   }
   layout(true);
   window.addEventListener('resize', function () { layout(false); });
+
+  // Video preview pictures load only when the video comes near the screen.
+  function setPoster(v) { v.poster = v.getAttribute('data-poster'); v.removeAttribute('data-poster'); }
+  var posterVideos = document.querySelectorAll('video[data-poster]');
+  if ('IntersectionObserver' in window) {
+    var posterObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { setPoster(en.target); posterObs.unobserve(en.target); } });
+    }, { rootMargin: '600px 0px' });
+    posterVideos.forEach(function (v) { posterObs.observe(v); });
+  } else {
+    posterVideos.forEach(setPoster);
+  }
 
   // Only one video plays at a time.
   grid.addEventListener('play', function (e) {

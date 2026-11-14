@@ -21,8 +21,11 @@
 <link rel="icon" href="assets/img/logo-400.jpg" type="image/jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/img/baled-cans-truck-1600.jpg" media="(min-width: 700px)">
+<!-- font loads without blocking the first paint; Tahoma shows until it arrives -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&display=swap"></noscript>
+<link rel="preload" as="image" href="assets/img/hero-mobile.jpg" media="(max-width: 699px)" fetchpriority="high">
+<link rel="preload" as="image" imagesrcset="assets/img/baled-cans-truck-1200.jpg 1200w, assets/img/baled-cans-truck-1600.jpg 1600w" imagesizes="100vw" media="(min-width: 700px)" fetchpriority="high">
 <link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">
 {
@@ -48,7 +51,7 @@
 <header class="site-header" id="top">
   <div class="wrap header-inner">
     <a class="brand" href="#home" aria-label="آهن‌فروشی و ضایعات غرب کابل، بازگشت به ابتدای صفحه">
-      <img src="assets/img/logo-400.jpg" width="400" height="400" alt="لوگوی آهن‌فروشی غرب کابل: چرخ‌دندهٔ زرد روی نیم‌دایرهٔ بنفش">
+      <img src="assets/img/logo-168.jpg" width="168" height="168" alt="لوگوی آهن‌فروشی غرب کابل: چرخ‌دندهٔ زرد روی نیم‌دایرهٔ بنفش">
       <span class="brand-name">آهن‌فروشی و ضایعات<br><strong>غرب کابل</strong></span>
     </a>
     <nav class="nav" aria-label="منوی اصلی">
@@ -79,8 +82,8 @@
 
   <section class="hero" id="home" aria-labelledby="hero-title">
     <picture class="hero-media">
-      <source media="(min-width: 700px)" srcset="assets/img/baled-cans-truck-1600.jpg">
-      <img src="assets/img/baled-cans-truck-worker-1600.jpg" width="1600" height="900" alt="کارگر بالای لاری در حال چیدن بسته‌های فشرده‌شدهٔ قوطی" fetchpriority="high">
+      <source media="(min-width: 700px)" srcset="assets/img/baled-cans-truck-1200.jpg 1200w, assets/img/baled-cans-truck-1600.jpg 1600w" sizes="100vw">
+      <img src="assets/img/hero-mobile.jpg" width="560" height="900" alt="کارگر بالای لاری در حال چیدن بسته‌های فشرده‌شدهٔ قوطی" fetchpriority="high">
     </picture>
     <div class="hero-shade" aria-hidden="true"></div>
     <div class="wrap hero-content">
@@ -103,7 +106,7 @@
         <a class="btn btn-purple" href="#contact">تماس با ما</a>
       </div>
       <figure class="intro-video reveal">
-        <video controls preload="none" playsinline poster="assets/video/posters/intro.jpg" width="1072" height="1920" aria-label="ویدیوی معرفی آهن‌فروشی و ضایعات غرب کابل">
+        <video controls preload="none" playsinline data-poster="assets/video/posters/intro.jpg" width="1072" height="1920" aria-label="ویدیوی معرفی آهن‌فروشی و ضایعات غرب کابل">
           <source src="assets/video/web/intro.mp4" type="video/mp4">
         </video>
       </figure>
@@ -540,7 +543,7 @@
 <footer class="site-footer">
   <div class="wrap footer-grid">
     <div class="footer-brand">
-      <img src="assets/img/logo-400.jpg" width="400" height="400" loading="lazy" alt="لوگوی آهن‌فروشی غرب کابل">
+      <img src="assets/img/logo-168.jpg" width="168" height="168" loading="lazy" alt="لوگوی آهن‌فروشی غرب کابل">
       <div>
         <p class="footer-name">آهن‌فروشی و ضایعات غرب کابل</p>
         <p class="footer-slogan">از ارزش امروز، برای ساختن فردا.</p>
